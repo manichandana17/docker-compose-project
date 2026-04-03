@@ -2,20 +2,19 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Stop Containers') {
+        stage('Docker Down') {
             steps {
                 bat 'docker compose down || exit 0'
             }
         }
 
-        stage('Build & Run') {
+        stage('Docker Build & Up') {
             steps {
                 bat 'docker compose up -d --build'
             }
         }
 
-        stage('Check Running') {
+        stage('Check Running Containers') {
             steps {
                 bat 'docker ps'
             }
