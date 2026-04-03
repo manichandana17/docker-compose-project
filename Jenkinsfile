@@ -5,19 +5,19 @@ pipeline {
 
         stage('Stop Containers') {
             steps {
-                sh 'docker compose down || true'
+                bat 'docker compose down || exit 0'
             }
         }
 
         stage('Build & Run') {
             steps {
-                sh 'docker compose up -d --build'
+                bat 'docker compose up -d --build'
             }
         }
 
         stage('Check Running') {
             steps {
-                sh 'docker ps'
+                bat 'docker ps'
             }
         }
     }
