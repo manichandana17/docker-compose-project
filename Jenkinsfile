@@ -28,15 +28,12 @@ pipeline {
 
        stage('Deploy to Dev') {
     steps {
-        sshagent(['ec2-dev-key']) {
-            bat '''
-            ssh -o StrictHostKeyChecking=no ec2-user@3.108.193.4 ^
-            "docker stop my-app || true && docker rm my-app || true && docker run -d --name my-app -e DB_PASS=%DB_PASS% -p 3001:3000 chandana172/myapp:15"
-            '''
-        }
+        bat '''
+        ssh -o StrictHostKeyChecking=no -i "C:\\Users\\mani chandana\\Downloads\\devops-key.pem" ec2-user@3.108.193.4 ^
+        "docker pull chandana172/myapp:${BUILD_NUMBER} && docker stop myapp || true && docker rm myapp || true && docker run -d --name myapp -p 3001:3000 chandana172/myapp:${BUILD_NUMBER}"
+        '''
     }
 }
-
 
         stage('Approval for QA') {
             steps {
