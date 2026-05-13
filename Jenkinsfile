@@ -30,7 +30,7 @@ pipeline {
     steps {
         withCredentials([sshUserPrivateKey(credentialsId: 'ec2-dev-key', keyFileVariable: 'SSH_KEY')]) {
             bat """
-            ssh -o StrictHostKeyChecking=no -i "%SSH_KEY%" ec2-user@13.126.193.4 "docker stop my-app || true && docker rm my-app || true && docker run -d --name my-app -e DB_PASS=%DB_PASS% -p 3001:3000  chandana172/myapp:%BUILD_NUMBER%"
+            ssh -o StrictHostKeyChecking=no -i "%SSH_KEY%" ec2-user@3.108.193.4 "docker stop my-app || true && docker rm my-app || true && docker run -d --name my-app -e DB_PASS=%DB_PASS% -p 3001:3000  chandana172/myapp:%BUILD_NUMBER%"
             """
         }
     }
